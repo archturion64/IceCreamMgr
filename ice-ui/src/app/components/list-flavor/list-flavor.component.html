@@ -1,0 +1,38 @@
+<h3>Eissorten</h3>
+
+
+<ul>
+    <li *ngFor="let flavor of flavors" class="card">
+        <div class="card-body">
+          <div class="row col-12"><h4>{{flavor.name}}</h4></div>
+          
+          <div class="row">
+            <div class="gray-color col-3">Kategorie:</div>
+            <div class="col-9"> {{categoryToName(flavor.category)}}</div>
+          </div>
+          <div class="row">
+            <div class="gray-color col-3">Zutaten:</div>
+            <div class="col-9">
+              <span  *ngFor="let ingredient of flavor.ingredients;let isLast = last">
+                <span *ngIf="isLast">{{ingredient}}</span>
+                <span *ngIf="!isLast">{{ingredient}},&nbsp;</span>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="gray-color col-3">Lebensmittelunverträglichkeiten:</div>
+            <div class="col-9">{{flavor.foodIntolerance}}</div>
+          </div>
+          <div class="row justify-content-start">
+            <div class="gray-color col-3">Nährwert:</div>
+            <div class="col-1">{{flavor.nutritionalValue}}</div>
+            <div class="gray-color col-1">kcal</div>
+          </div>
+          <div class="row justify-content-start">
+            <div class="gray-color col-3">Preis:</div>
+            <div class="col-1">{{flavor.price}}</div>
+            <div class="gray-color col-1">Euro</div>
+          </div>
+        </div>
+    </li>
+</ul>
