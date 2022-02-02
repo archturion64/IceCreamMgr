@@ -5,6 +5,7 @@ import { Flavor } from 'src/app/models/flavor';
 import { ErrorService } from 'src/app/services/error.service';
 import { FlavorMappingService } from 'src/app/services/flavor-mapping.service';
 import { FlavorsService } from '../../services/flavors.service'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-flavor',
@@ -17,20 +18,12 @@ export class ListFlavorComponent implements OnInit {
     return FlavorMappingService.supportedCategories.get(category);
   }
 
-  constructor(  private flavorService: FlavorsService,
-                private errorService: ErrorService ) { }
+  constructor(private route: ActivatedRoute) { }
 
   flavors: Flavor[] = [];
 
-  async ngOnInit(): Promise<void> {
-    await this.flavorService.getFlavors()
-    .then( (data) => {
-      console.log(data);
-      this.flavors = data;
-    })
-    .catch( (error: HttpErrorResponse) => {
-      this.errorService.handleConnectionError(error)
-    });
+  ngOnInit(): void {
+    this.flavors = this.route.snapshot.data['flavorsData'];
   }
 
 }

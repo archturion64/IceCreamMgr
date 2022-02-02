@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddFlavorComponent } from './components/add-flavor/add-flavor.component';
 import { ListFlavorComponent } from './components/list-flavor/list-flavor.component';
+import { FlavorsResolver } from './resolvers/flavors.resolver';
 
 const routes: Routes = [
   {
@@ -10,11 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: ListFlavorComponent
+    component: ListFlavorComponent,
+    resolve: { flavorsData: FlavorsResolver }
   },
   {
     path: '',
-    component: ListFlavorComponent
+    component: ListFlavorComponent,
+    resolve: { flavorsData: FlavorsResolver }
   }
 ];
 

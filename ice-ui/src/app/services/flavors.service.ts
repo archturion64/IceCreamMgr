@@ -4,7 +4,7 @@ import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Flavor } from '../models/flavor';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +18,8 @@ export class FlavorsService {
   private readonly url = environment.SERVICE_URL + '/ice-cream/flavors';
 
 
-  public async getFlavors(): Promise<Flavor[]> {
-    try {
-      return firstValueFrom(this.http.get<Flavor[]>(this.url))
-        .then(flavors => flavors.map(flavor => this.flavorMappingService.fromApi(flavor)));
-    } catch (error) {
-      Object.assign({request: `GET ${this.url}`}, error);
-      return this.errorService.handleError(this.constructor.name, error);
-    }
+  public getFlavors(): Observable<Flavor[]> {
+    return this.http.get<Flavor[]>(this.url);
   }
 
   public async addFlavor(flavor: Flavor): Promise<any> {
