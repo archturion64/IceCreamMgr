@@ -1,7 +1,7 @@
 import { FlavorCategory } from './../../models/flavor-category';
 import { Flavor } from './../../models/flavor';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
 import { FlavorsService } from '../../services/flavors.service';
 import { FlavorMappingService } from '../../services/flavor-mapping.service';
 import { ErrorService } from 'src/app/services/error.service';
@@ -21,20 +21,20 @@ export class AddFlavorComponent implements OnInit {
 
   constructor(  private flavorsService: FlavorsService,
                 private errorService: ErrorService,
-                private fb: FormBuilder,
+                private fb: UntypedFormBuilder,
                 private router: Router) { }
 
   flavorFormGroup = this.fb.group( {
-    name: new FormControl(''),
-    category: new FormControl(''),
-    ingredients: new FormArray([]),
-    foodIntolerance: new FormControl(''),
-    nutritionalValue: new FormControl(''),
-    price: new FormControl('')
+    name: new UntypedFormControl(''),
+    category: new UntypedFormControl(''),
+    ingredients: new UntypedFormArray([]),
+    foodIntolerance: new UntypedFormControl(''),
+    nutritionalValue: new UntypedFormControl(''),
+    price: new UntypedFormControl('')
   });
 
   get ingredients() {
-    return this.flavorFormGroup.controls["ingredients"] as FormArray;
+    return this.flavorFormGroup.controls["ingredients"] as UntypedFormArray;
   }
 
   ngOnInit(): void {

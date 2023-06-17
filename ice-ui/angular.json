@@ -103,5 +103,7 @@
       }
     }
   },
-  "defaultProject": "ice-cream-ui"
+  "cli": {
+    "analytics": false
+  }
 }
