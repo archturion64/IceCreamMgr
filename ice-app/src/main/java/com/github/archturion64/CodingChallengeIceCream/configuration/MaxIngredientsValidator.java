@@ -1,8 +1,8 @@
 package com.github.archturion64.CodingChallengeIceCream.configuration;
 
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.List;
 
 import static com.github.archturion64.CodingChallengeIceCream.configuration.UserInputLimits.MAX_NUMBER_INGREDIENTS;

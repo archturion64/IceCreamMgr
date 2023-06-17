@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 public class IceCreamFlavorEntityMapper {
 
     public static IceCreamFlavorEntity map(final IceCreamFlavor obj) {
-        return new IceCreamFlavorEntity(obj.getName(),
-                obj.getCategory(),
-                obj.getIngredients()
+        return new IceCreamFlavorEntity(obj.name(),
+                obj.category(),
+                obj.ingredients()
                         .stream()
                         .map(IngredientEntity::new)
                         .collect(Collectors.toSet()),
-                obj.getFoodIntolerance(),
-                obj.getNutritionalValue(),
-                obj.getPrice());
+                obj.foodIntolerance(),
+                obj.nutritionalValue(),
+                obj.price());
     }
 
     public static IceCreamFlavor map(final IceCreamFlavorEntity obj) {

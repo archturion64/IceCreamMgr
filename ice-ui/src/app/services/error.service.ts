@@ -20,10 +20,8 @@ export class ErrorService {
   public handleConnectionError(response: HttpErrorResponse): Promise<any> {
     console.log(response);
     const error = response.error;
-    if (response.error.message) {
-      alert(error.message);
-    } else {
-      alert(response.message);
+    if (error.title) {
+      alert(error.title);
     }
 
     throw error;

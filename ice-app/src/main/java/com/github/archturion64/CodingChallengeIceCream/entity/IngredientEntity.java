@@ -1,19 +1,21 @@
 package com.github.archturion64.CodingChallengeIceCream.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity(name = "ingredient")
 @Table(name = "ingredients")
 public class IngredientEntity {
+
+    public IngredientEntity() {
+        // for JPA
+    }
+
+    public IngredientEntity(String name) {
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +33,15 @@ public class IngredientEntity {
     @ManyToMany(mappedBy = "ingredients")
     private Set<IceCreamFlavorEntity> flavors = new HashSet<>();
 
-    public IngredientEntity(String name) {
-        this.name = name;
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<IceCreamFlavorEntity> getFlavors() {
+        return flavors;
     }
 }

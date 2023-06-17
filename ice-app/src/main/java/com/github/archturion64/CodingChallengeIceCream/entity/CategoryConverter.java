@@ -2,8 +2,8 @@ package com.github.archturion64.CodingChallengeIceCream.entity;
 
 import com.github.archturion64.CodingChallengeIceCream.control.Category;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class CategoryConverter implements AttributeConverter<Category, String> {

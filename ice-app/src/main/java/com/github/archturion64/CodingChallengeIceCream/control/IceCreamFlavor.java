@@ -1,23 +1,9 @@
 package com.github.archturion64.CodingChallengeIceCream.control;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
-public class IceCreamFlavor {
+public record IceCreamFlavor(String name, Category category, Set<String> ingredients, String foodIntolerance,
+                             Integer nutritionalValue, Double price) {
 
-    private final String name;
-
-    private final Category category;
-
-    private final Set<String> ingredients;
-
-    private final String foodIntolerance;
-
-    private final Integer nutritionalValue;
-
-    private final Double price;
 }

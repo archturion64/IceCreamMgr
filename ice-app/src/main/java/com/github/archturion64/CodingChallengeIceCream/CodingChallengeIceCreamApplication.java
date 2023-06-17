@@ -3,7 +3,6 @@ package com.github.archturion64.CodingChallengeIceCream;
 import com.github.archturion64.CodingChallengeIceCream.control.Category;
 import com.github.archturion64.CodingChallengeIceCream.control.IceCreamFlavor;
 import com.github.archturion64.CodingChallengeIceCream.control.IceCreamFlavorService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,11 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.HashSet;
 import java.util.List;
 
-@RequiredArgsConstructor
 @SpringBootApplication
 public class CodingChallengeIceCreamApplication implements CommandLineRunner {
 
 	private final IceCreamFlavorService iceCreamFlavorService;
+
+	public CodingChallengeIceCreamApplication(IceCreamFlavorService iceCreamFlavorService) {
+		this.iceCreamFlavorService = iceCreamFlavorService;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CodingChallengeIceCreamApplication.class, args);

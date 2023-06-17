@@ -29,11 +29,11 @@ public class IceCreamFlavorDTOMapper {
     }
 
     public static IceCreamFlavorDTO map(final IceCreamFlavor obj) {
-        return new IceCreamFlavorDTO(obj.getName(),
-                obj.getCategory().toString(),
-                List.copyOf(obj.getIngredients()),
-                obj.getFoodIntolerance(),
-                obj.getNutritionalValue(),
-                obj.getPrice().toString());
+        return new IceCreamFlavorDTO(obj.name(),
+                obj.category().toString(),
+                List.copyOf(obj.ingredients()),
+                obj.foodIntolerance(),
+                obj.nutritionalValue(),
+                obj.price().toString());
     }
 }

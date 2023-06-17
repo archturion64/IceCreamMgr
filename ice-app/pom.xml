@@ -5,17 +5,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.3</version>
+		<version>3.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.archturion64</groupId>
 	<artifactId>CodingChallengeIceCream</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CodingChallengeIceCream</name>
-	<description>A coding challenge set upon be during a recruitment process.</description>
+	<description>A coding challenge set upon me during a recruitment process.</description>
 	<properties>
-		<java.version>11</java.version>
-		<dependency.swaggerui>3.0.0</dependency.swaggerui>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -38,20 +37,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>${dependency.swaggerui}</version>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -65,12 +54,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>

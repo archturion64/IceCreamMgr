@@ -1,20 +1,27 @@
 package com.github.archturion64.CodingChallengeIceCream.entity;
 
 import com.github.archturion64.CodingChallengeIceCream.control.Category;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
 @Entity(name = "flavor")
 @Table(name = "flavors")
-@Getter
-@Setter
 public class IceCreamFlavorEntity {
+
+    public IceCreamFlavorEntity() {
+        // for JPA
+    }
+
+    public IceCreamFlavorEntity(String name, Category category, Set<IngredientEntity> ingredients, String foodIntolerance, Integer nutritionalValue, Double price) {
+        this.name = name;
+        this.category = category;
+        this.ingredients = ingredients;
+        this.foodIntolerance = foodIntolerance;
+        this.nutritionalValue = nutritionalValue;
+        this.price = price;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,17 +58,35 @@ public class IceCreamFlavorEntity {
 
     @Column(
             precision = 10,
-            scale = 2,
             name = "flavor_price"
     )
     private Double price;
 
-    public IceCreamFlavorEntity(String name, Category category, Set<IngredientEntity> ingredients, String foodIntolerance, Integer nutritionalValue, Double price) {
-        this.name = name;
-        this.category = category;
-        this.ingredients = ingredients;
-        this.foodIntolerance = foodIntolerance;
-        this.nutritionalValue = nutritionalValue;
-        this.price = price;
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Set<IngredientEntity> getIngredients() {
+        return ingredients;
+    }
+
+    public String getFoodIntolerance() {
+        return foodIntolerance;
+    }
+
+    public Integer getNutritionalValue() {
+        return nutritionalValue;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }
