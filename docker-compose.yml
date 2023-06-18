@@ -6,7 +6,6 @@ services:
     container_name: ice-app
     #Environment variables for Spring Boot Application.
     environment:
-      - DB_SERVER=scrum-postgres
       - H2_DB=icecream
       - H2_USER=sa
       - H2_PASSWORD=secret
