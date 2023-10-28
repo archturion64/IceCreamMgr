@@ -1,29 +1,23 @@
-import { FlavorCategory } from './../../models/flavor-category';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Flavor } from 'src/app/models/flavor';
-import { ErrorService } from 'src/app/services/error.service';
-import { FlavorMappingService } from 'src/app/services/flavor-mapping.service';
-import { FlavorsService } from '../../services/flavors.service'
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FlavorFacade } from 'src/app/store/flavor-facade';
+import { CallState } from 'src/app/store/flavor-models';
+
 
 @Component({
   selector: 'app-list-flavor',
   templateUrl: './list-flavor.component.html',
-  styleUrls: ['./list-flavor.component.css']
+  styleUrls: ['./list-flavor.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListFlavorComponent implements OnInit {
+export class ListFlavorComponent {
 
-  public categoryToName(category: FlavorCategory): string | undefined {
-    return FlavorMappingService.supportedCategories.get(category);
-  }
+  protected CallState = CallState;
 
-  constructor(private route: ActivatedRoute) { }
+  flavorsVm$ = this.flavorFacade.flavorsVm$;
 
-  flavors: Flavor[] = [];
+  constructor(
+    private flavorFacade: FlavorFacade
+  ) { }
 
-  ngOnInit(): void {
-    this.flavors = this.route.snapshot.data['flavorsData'];
-  }
 
 }

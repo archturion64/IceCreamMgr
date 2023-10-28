@@ -1,14 +1,15 @@
-<h3>Eissorten</h3>
-
-
-<ul>
-    <li *ngFor="let flavor of flavors" class="card">
+<ng-container *ngIf="flavorsVm$ | async as vm">
+  <h3>Eissorten</h3>
+  <ul>
+    <div *ngIf="vm.flavorsState === CallState.LOADING">Laden...</div>
+    <div *ngIf="vm.flavorsState === CallState.ERROR">Ein Fehler ist aufgetreten. Bitte wiederholen Sie den Vorgang.</div>
+    <li *ngFor="let flavor of vm.flavors" class="card">
         <div class="card-body">
           <div class="row col-12"><h4>{{flavor.name}}</h4></div>
           
           <div class="row">
             <div class="gray-color col-3">Kategorie:</div>
-            <div class="col-9"> {{categoryToName(flavor.category)}}</div>
+            <div class="col-9">{{flavor.category}}</div>
           </div>
           <div class="row">
             <div class="gray-color col-3">Zutaten:</div>
@@ -35,4 +36,7 @@
           </div>
         </div>
     </li>
-</ul>
+  </ul>
+</ng-container>
+
+

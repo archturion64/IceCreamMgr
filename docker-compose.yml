@@ -10,10 +10,12 @@ services:
       - H2_USER=sa
       - H2_PASSWORD=secret
     ports:
-      - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - 8080:8080
     #Fron-end Angular Application
   ice-ui:
-    build: ./ice-ui
+    build:
+      context: .
+      dockerfile: ./ice-ui/Dockerfile
     container_name: ice-ui
     ports:
       - 4200:80

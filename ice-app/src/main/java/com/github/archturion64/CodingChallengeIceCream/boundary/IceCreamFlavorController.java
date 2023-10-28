@@ -28,7 +28,7 @@ public class IceCreamFlavorController {
                 .collect(Collectors.toList()));
     }
 
-    @PutMapping(value = "/flavors", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/flavors", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> add(final @RequestBody @Valid IceCreamFlavorDTO flavorDTO) {
         iceCreamFlavorService.add(IceCreamFlavorDTOMapper.map(flavorDTO));
         return ResponseEntity.noContent().build();

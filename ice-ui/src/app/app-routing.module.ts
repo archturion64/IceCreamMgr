@@ -2,22 +2,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddFlavorComponent } from './components/add-flavor/add-flavor.component';
 import { ListFlavorComponent } from './components/list-flavor/list-flavor.component';
-import { FlavorsResolver } from './resolvers/flavors.resolver';
+import { flavorGuard } from './guards/flavor.guard';
 
 const routes: Routes = [
   {
     path: 'add',
-    component: AddFlavorComponent
+    component: AddFlavorComponent,
+    canActivate: [flavorGuard]
   },
   {
     path: 'list',
     component: ListFlavorComponent,
-    resolve: { flavorsData: FlavorsResolver }
+    canActivate: [flavorGuard]
   },
   {
     path: '',
     component: ListFlavorComponent,
-    resolve: { flavorsData: FlavorsResolver }
+    canActivate: [flavorGuard],
   }
 ];
 

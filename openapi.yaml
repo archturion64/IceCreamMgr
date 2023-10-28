@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Ice-Cream Manager
+  description: Spec for ice cream manager
+  version: 0.2.0
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /ice-cream/flavors:
+    get:
+      summary: Returns a list of stored flavors.
+      tags:
+        - flavors
+      description: Fetch all flavors.
+      operationId: getFlavors
+      responses:
+        '200':
+          description: A JSON array of flavors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flavor'
+    post:
+      summary: Create new flavor.
+      tags:
+        - flavors
+      description: Add flavor.
+      operationId: createNewFlavor
+      requestBody:
+        description: creates a new flavor
+        content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/NewFlavor'
+        required: true
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceId'
+  /ice-cream/flavors/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Fetch a specific flavor.
+      tags:
+        - flavors
+      operationId: getFlavor
+      responses:
+        200:
+          description: Returns the requested flavor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flavor'
+        404:
+          description: Not found
+    put:
+      summary: Edit existing flavor.
+      tags:
+        - flavors
+      operationId: editFlavor
+      requestBody:
+        description: edit flavor
+        content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Flavor'
+        required: true
+      responses:
+        200:
+          description: edited
+        404:
+          description: Not found
+    delete:
+      summary: delete a specific flavor.
+      tags:
+        - flavors
+      operationId: deleteFlavor
+      responses:
+        200:
+          description: deleted
+        404:
+          description: Not found
+components:
+  schemas:
+    ResourceId:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: number
+          description: resource id
+          example: 2
+    FlavorCategory:
+      type: string
+      enum: 
+         - Sahne-Eis
+         - Wasser-Eis
+         - Frucht-Eis
+      description: type of ice cream
+      example: Sahne-Eis
+    NewFlavor:
+      required:
+        - name
+        - category
+        - ingredients
+        - foodIntolerance
+        - nutritionalValue
+        - price
+      type: object
+      properties:
+        name:
+          type: string
+          description: flavor name
+          example: bitter-sweet
+        category:
+          description: type of ice cream
+          $ref: '#/components/schemas/FlavorCategory'
+        ingredients:
+          type: array
+          items:
+            type: string
+          description: list of ingredients
+          example: ["milk", "sugar", "cream"]
+        foodIntolerance:
+          type: string
+          description: known food intolerances
+          example: lactose
+        nutritionalValue:
+          type: number
+          description: value in kCal
+          example: 30
+        price:
+          type: string
+          description: price per liter
+          example: 34,5
+    Flavor:
+      allOf:
+        - $ref: '#/components/schemas/ResourceId'
+        - $ref: '#/components/schemas/NewFlavor'

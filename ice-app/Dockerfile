@@ -1,9 +1,9 @@
-FROM maven:3.9.2-eclipse-temurin-17 AS build
+FROM openjdk:17-alpine AS build
 WORKDIR /usr/src/app
 COPY . /usr/src/app
-RUN mvn package
+RUN ./gradlew bootJar
 
-FROM maven:3.9.2-eclipse-temurin-17
-COPY --from=build /usr/src/app/target/${JAR_FILE} /opt/app/
+FROM openjdk:17-alpine
+COPY --from=build /usr/src/app/build/libs/${JAR_FILE} .
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","CodingChallengeIceCream-0.0.1-SNAPSHOT.jar"]

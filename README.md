@@ -7,23 +7,34 @@ Create a web application with a SPA (Single Page Application) front.end and a Ja
 
 ## Some Decisions:
 
-- Use newest version of Angular as of Jan 2022 for the front-end
-- Use newest version Bootstrap as of Jan 2022 for UI and CSS 
+- Use Angular 16 for the front-end
 - Use Spring Boot 3 and Java 17 for the back-end
 - Do at least some form of validation on the server side (even tho it was optional)
 - Use H2 in-memory database to reduce set-up time during development
-- Use docker to prevent deployment headaches
 
 ## Build and Deploy
+Local: 
+Dependencies:
+- Java 17
+- Node 18
 
+```sh
+cd <project folder>/ice-ui
+npm install
+npm run start:clean
+```
+```sh
+cd <project folder>/ice-app
+./gradlew bootRun
+```
+
+With docker _(under construction)_:
 Dependencies:
 - [docker](https://docs.docker.com/get-docker/)
 - [docker-compose](https://docs.docker.com/compose/install/)
-
-Build and run:
 ```sh
 cd <project folder>
-docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yaml up
 ```
 
 ## Usage

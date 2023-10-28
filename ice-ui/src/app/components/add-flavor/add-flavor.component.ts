@@ -1,62 +1,68 @@
-import { FlavorCategory } from './../../models/flavor-category';
-import { Flavor } from './../../models/flavor';
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
-import { FlavorsService } from '../../services/flavors.service';
-import { FlavorMappingService } from '../../services/flavor-mapping.service';
-import { ErrorService } from 'src/app/services/error.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorResponse } from 'src/app/models/error-response';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Validators, FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { FlavorCategory, NewFlavor } from 'src/app/core/api/v1';
 import { Router } from '@angular/router';
+import { FlavorFacade } from 'src/app/store/flavor-facade';
+import { CallState } from 'src/app/store/flavor-models';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+interface FlavorFormGroupForm {
+  name: FormControl<string>;
+  category: FormControl<string>;
+  ingredients: FormArray<FormControl<string>>;
+  foodIntolerance: FormControl<string>;
+  nutritionalValue: FormControl<number>;
+  price: FormControl<string>;
+};
 
 @Component({
   selector: 'app-add-flavor',
   templateUrl: './add-flavor.component.html',
-  styleUrls: ['./add-flavor.component.css']
+  styleUrls: ['./add-flavor.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddFlavorComponent implements OnInit {
+export class AddFlavorComponent {
+  protected CallState = CallState;
+  categories = Object.values(FlavorCategory);
+  newFlavorState$ = this.flavorFacade.newFlavorState$
 
-  supportedCategories = FlavorMappingService.supportedCategories;
+  constructor(  
+    private fb: FormBuilder,
+    private router: Router,
+    private flavorFacade: FlavorFacade
+    ) {
+      this.flavorFacade.newFlavorState$.pipe(takeUntilDestroyed()).subscribe((newFlavorState) => {
+        console.log(newFlavorState)
+        if(newFlavorState === CallState.SUCCESS) {
+          console.log('sadasd')
+          this.flavorFacade.resetNewFlavorsState();
+          this.router.navigate(['list']);
+        }
+      });
+    }
 
-
-  constructor(  private flavorsService: FlavorsService,
-                private errorService: ErrorService,
-                private fb: UntypedFormBuilder,
-                private router: Router) { }
-
-  flavorFormGroup = this.fb.group( {
-    name: new UntypedFormControl(''),
-    category: new UntypedFormControl(''),
-    ingredients: new UntypedFormArray([]),
-    foodIntolerance: new UntypedFormControl(''),
-    nutritionalValue: new UntypedFormControl(''),
-    price: new UntypedFormControl('')
+  flavorFormGroup = this.fb.group<FlavorFormGroupForm>( {
+    name: this.fb.nonNullable.control<string>('', Validators.required),
+    category: this.fb.nonNullable.control<string>('', Validators.required),
+    ingredients: this.fb.nonNullable.array<string>([]),
+    foodIntolerance: this.fb.nonNullable.control<string>('', Validators.required),
+    nutritionalValue: this.fb.nonNullable.control<number>(0, Validators.required),
+    price: this.fb.nonNullable.control<string>('', Validators.required),
   });
 
   get ingredients() {
-    return this.flavorFormGroup.controls["ingredients"] as UntypedFormArray;
-  }
-
-  ngOnInit(): void {
+    return this.flavorFormGroup.controls["ingredients"];
   }
 
   addIngredient() {
-    const ingredientForm = this.fb.control('', Validators.required);
-    
-    this.ingredients.push(ingredientForm);
+    this.ingredients.push(this.fb.nonNullable.control<string>('', Validators.required));
   }
 
   deleteIngredient(index: number) {
     this.ingredients.removeAt(index);
-}
+  }
 
-  async saveData(){
-    console.log(this.flavorFormGroup);
-    await this.flavorsService.addFlavor(this.flavorFormGroup.value as Flavor)
-    .then( _ => this.router.navigate(['list']))
-    .catch( (error: HttpErrorResponse) => {
-      console.log(error)
-      this.errorService.handleConnectionError(error);
-    });
+  onSubmit(){
+    this.flavorFacade.addFlavor(this.flavorFormGroup.getRawValue() as NewFlavor);
   }
 }

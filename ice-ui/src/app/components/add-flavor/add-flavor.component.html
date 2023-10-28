@@ -1,47 +1,54 @@
 <h2 class="row mb-1 col-12">Neue Eissorte hinzufügen</h2>
 
-<form [formGroup]="flavorFormGroup">
-    <div>
-        <div class="row form-group col-8">
-            <label for="flavorName">Name</label>
-            <input type="text" class="form-control" id="flavorName" placeholder="Was für ein Eis?" formControlName="name">
-        </div>
-        <div class="row form-group col-8">
-            <label for="flavorCategory">Kategorie</label>
-            <select class="form-control" id="flavorCategory" formControlName="category">
-                <option value="" disabled selected>Bitte wählen</option>
-                <option *ngFor="let cat of supportedCategories | keyvalue" [ngValue]="cat.key">{{cat.value}}</option>
-            </select>
-        </div>
-        <div class="row form-group">
-            <label class="col-12" for="flavorIngredients">Zutaten</label>
-            <div class="col-12 mb-1">
-                <button type="button" class="btn btn-secondary btn-sm" (click)="addIngredient()">+</button>
+<ng-container *ngIf="(newFlavorState$ | async) as newFlavorState">
+
+
+
+    <form [formGroup]="flavorFormGroup" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="row form-group col-8">
+                <label for="flavorName">Name</label>
+                <input type="text" class="form-control" id="flavorName" placeholder="Was für ein Eis?" formControlName="name">
             </div>
-            <ng-container formArrayName="ingredients">
-                <ng-container *ngFor="let ingredientForm of ingredients.controls; let i = index">
-                    <div class="col-8" >
-                            <input [formControlName]="i" placeholder="Zutat eingeben">
-                            <button type="button" class="btn btn-secondary btn-sm" (click)="deleteIngredient(i)">X</button>
-                    </div>
+            <div class="row form-group col-8">
+                <label for="flavorCategory">Kategorie</label>
+                <select class="form-control" id="flavorCategory" formControlName="category">
+                    <option value="" disabled selected>Bitte wählen</option>
+                    <option *ngFor="let cat of categories" [ngValue]="cat">{{cat}}</option>
+                </select>
+            </div>
+            <div class="row form-group">
+                <label class="col-12" for="flavorIngredients">Zutaten</label>
+                <div class="col-12 mb-1">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="addIngredient()">+</button>
+                </div>
+                <ng-container formArrayName="ingredients">
+                    <ng-container *ngFor="let ingredientForm of ingredients.controls; let i = index">
+                        <div class="col-8" >
+                                <input [formControlName]="i" placeholder="Zutat eingeben">
+                                <button type="button" class="btn btn-secondary btn-sm" (click)="deleteIngredient(i)">X</button>
+                        </div>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
+            </div>
+            <div class="row form-group col-8">            
+                
+            </div>
+            <div class="row form-group col-8">
+                <label for="flavorFoodIntolerance">Lebensmittewlunverträglichkeiten</label>
+                <textarea class="form-control" id="flavorFoodIntolerance" rows="3" placeholder="Unbedingt ausfühlen!" formControlName="foodIntolerance"></textarea>
+            </div>
+            <div class="row form-group col-8">
+                <label for="flavorNutritionalValue">Nährwert</label>
+                <input type="number" class="form-control" id="flavorNutritionalValue" placeholder="In kcal / 100g" formControlName="nutritionalValue">
+            </div>
+            <div class="row form-group col-8">
+                <label for="flavorPrice">VK Preis</label>
+                <input type="text" class="form-control" id="flavorPrice" placeholder="in Euro / Liter" formControlName="price">
+            </div>
         </div>
-        <div class="row form-group col-8">            
-            
-        </div>
-        <div class="row form-group col-8">
-            <label for="flavorFoodIntolerance">Lebensmittewlunverträglichkeiten</label>
-            <textarea class="form-control" id="flavorFoodIntolerance" rows="3" placeholder="Unbedingt ausfühlen!" formControlName="foodIntolerance"></textarea>
-        </div>
-        <div class="row form-group col-8">
-            <label for="flavorNutritionalValue">Nährwert</label>
-            <input type="text" class="form-control" id="flavorNutritionalValue" placeholder="In kcal / 100g" formControlName="nutritionalValue">
-        </div>
-        <div class="row form-group col-8">
-            <label for="flavorPrice">VK Preis</label>
-            <input type="text" class="form-control" id="flavorPrice" placeholder="in Euro / Liter" formControlName="price">
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="saveData()">Hinzufügen</button>
-  </form>
+        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+        <div *ngIf="newFlavorState === CallState.ERROR">Ein Fehler ist aufgetreten. Bitte wiederholen Sie den Vorgang.</div>
+    </form>
+
+</ng-container>

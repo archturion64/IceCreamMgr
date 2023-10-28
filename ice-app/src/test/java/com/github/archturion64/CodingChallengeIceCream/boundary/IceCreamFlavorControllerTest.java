@@ -14,12 +14,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -30,8 +30,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 
-@WebMvcTest(controllers = IceCreamFlavorController.class)
-@AutoConfigureMockMvc(addFilters = false) // for when security is added
+@SpringBootTest
+@AutoConfigureMockMvc()
 class IceCreamFlavorControllerTest {
 
     private static final MediaType APPLICATION_JSON_UTF8 = new MediaType(
@@ -87,8 +87,8 @@ class IceCreamFlavorControllerTest {
     }
 
     @Test
-    @DisplayName("should return a 204 on successful PUT-Request to " + endpoint)
-    void putFlavors_Success() throws Exception {
+    @DisplayName("should return a 204 on successful POST-Request to " + endpoint)
+    void postFlavors_Success() throws Exception {
         // arrange
         ArgumentCaptor<IceCreamFlavor> captor = ArgumentCaptor.forClass(IceCreamFlavor.class);
         final IceCreamFlavor expected = new IceCreamFlavor("Bloody Mary",
@@ -105,7 +105,7 @@ class IceCreamFlavorControllerTest {
                 "3.35");
         final String requestJson = objectToJsonString(input);
         // act, assert
-        mockMvc.perform(MockMvcRequestBuilders.put(endpoint)
+        mockMvc.perform(MockMvcRequestBuilders.post(endpoint)
                         .contentType(APPLICATION_JSON_UTF8)
                         .content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().is(204));
@@ -115,8 +115,8 @@ class IceCreamFlavorControllerTest {
     }
 
     @Test
-    @DisplayName("should return a 500 if unhandled Exception thrown on PUT-Request to " + endpoint)
-    void putFlavors_Failure5xx() throws Exception {
+    @DisplayName("should return a 500 if unhandled Exception thrown on POST-Request to " + endpoint)
+    void postFlavors_Failure5xx() throws Exception {
         // arrange
         final IceCreamFlavorDTO input = new IceCreamFlavorDTO("Bloody Mary",
                 "Wasser-Eis",
@@ -128,7 +128,7 @@ class IceCreamFlavorControllerTest {
         doThrow(new RuntimeException("unexpected"))
                 .when(iceCreamFlavorServiceMock).add(Mockito.any());
         // act, assert
-        mockMvc.perform(MockMvcRequestBuilders.put(endpoint)
+        mockMvc.perform(MockMvcRequestBuilders.post(endpoint)
                         .contentType(APPLICATION_JSON_UTF8)
                         .content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().is(500));
