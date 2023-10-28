@@ -32,9 +32,7 @@ export class AddFlavorComponent {
     private flavorFacade: FlavorFacade
     ) {
       this.flavorFacade.newFlavorState$.pipe(takeUntilDestroyed()).subscribe((newFlavorState) => {
-        console.log(newFlavorState)
         if(newFlavorState === CallState.SUCCESS) {
-          console.log('sadasd')
           this.flavorFacade.resetNewFlavorsState();
           this.router.navigate(['list']);
         }

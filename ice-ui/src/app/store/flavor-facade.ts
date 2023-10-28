@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FlavorStore } from './flavor-store';
 import { NewFlavor } from '../core/api/v1';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
