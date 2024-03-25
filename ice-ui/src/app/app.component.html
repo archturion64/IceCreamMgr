@@ -3,28 +3,17 @@
 
 <div class="flex items-center -mx-4 space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap dark:bg-gray-100 dark:text-gray-800">
 	<a rel="noopener noreferrer" href="#" 
-    class="flex items-center flex-shrink-0 px-5 py-2 border-b-4 dark:border-gray-300 dark:text-gray-600" 
-    [ngClass]="router.url === '/list' ?  'dark:border-cyan-600 dark:text-gray-900' : 'dark:bg-gray-100 dark:text-gray-800' "
-    routerLink='list'>Eissorten-Liste
+    class="flex items-center flex-shrink-0 px-5 py-2 border-b-4 border-gray-300 dark:text-gray-600" 
+    [ngClass]="router.url === '/' ?  'dark:border-cyan-600 dark:text-gray-900' : 'dark:bg-gray-100 dark:text-gray-800' "
+    routerLink=''>Eissorten-Liste
   </a>
   <a rel="noopener noreferrer" href="#" 
-    class="flex items-center flex-shrink-0 px-5 py-2 border-b-4 dark:border-gray-300 dark:text-gray-600" 
-    [ngClass]="router.url === '/add' ?  'dark:border-cyan-600 dark:text-gray-900' : 'dark:bg-gray-100 dark:text-gray-800' "
+    class="flex items-center flex-shrink-0 px-5 py-2 border-b-4 border-gray-300 text-gray-600" 
+    [ngClass]="router.url === '/add' ?  'dark:border-cyan-600 dark:text-gray-900'  : 'dark:bg-gray-100 dark:text-gray-800' "
     routerLink='add'>neue Sorte hinzufügen
   </a>
 </div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink='list'>Eissorten-Liste</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink='add'>neue Sorte hinzufügen</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+
 <div class="container" >
   <router-outlet></router-outlet>
 </div>

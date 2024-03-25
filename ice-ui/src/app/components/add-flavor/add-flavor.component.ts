@@ -34,7 +34,7 @@ export class AddFlavorComponent {
       this.flavorFacade.newFlavorState$.pipe(takeUntilDestroyed()).subscribe((newFlavorState) => {
         if(newFlavorState === CallState.SUCCESS) {
           this.flavorFacade.resetNewFlavorsState();
-          this.router.navigate(['list']);
+          this.router.navigate(['']);
         }
       });
     }

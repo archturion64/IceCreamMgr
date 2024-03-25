@@ -11,11 +11,6 @@ const routes: Routes = [
     canActivate: [flavorGuard]
   },
   {
-    path: 'list',
-    component: ListFlavorComponent,
-    canActivate: [flavorGuard]
-  },
-  {
     path: '',
     component: ListFlavorComponent,
     canActivate: [flavorGuard],
