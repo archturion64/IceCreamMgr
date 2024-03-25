@@ -1,6 +1,18 @@
 
-<h1>Ice Cream Manager</h1>
+<h1 class="">Ice Cream Manager</h1>
 
+<div class="flex items-center -mx-4 space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap dark:bg-gray-100 dark:text-gray-800">
+	<a rel="noopener noreferrer" href="#" 
+    class="flex items-center flex-shrink-0 px-5 py-2 border-b-4 dark:border-gray-300 dark:text-gray-600" 
+    [ngClass]="router.url === '/list' ?  'dark:border-cyan-600 dark:text-gray-900' : 'dark:bg-gray-100 dark:text-gray-800' "
+    routerLink='list'>Eissorten-Liste
+  </a>
+  <a rel="noopener noreferrer" href="#" 
+    class="flex items-center flex-shrink-0 px-5 py-2 border-b-4 dark:border-gray-300 dark:text-gray-600" 
+    [ngClass]="router.url === '/add' ?  'dark:border-cyan-600 dark:text-gray-900' : 'dark:bg-gray-100 dark:text-gray-800' "
+    routerLink='add'>neue Sorte hinzufügen
+  </a>
+</div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">

@@ -1,42 +1,45 @@
 <ng-container *ngIf="flavorsVm$ | async as vm">
-  <h3>Eissorten</h3>
-  <ul>
-    <div *ngIf="vm.flavorsState === CallState.LOADING">Laden...</div>
-    <div *ngIf="vm.flavorsState === CallState.ERROR">Ein Fehler ist aufgetreten. Bitte wiederholen Sie den Vorgang.</div>
-    <li *ngFor="let flavor of vm.flavors" class="card">
-        <div class="card-body">
-          <div class="row col-12"><h4>{{flavor.name}}</h4></div>
-          
-          <div class="row">
-            <div class="gray-color col-3">Kategorie:</div>
-            <div class="col-9">{{flavor.category}}</div>
-          </div>
-          <div class="row">
-            <div class="gray-color col-3">Zutaten:</div>
-            <div class="col-9">
-              <span  *ngFor="let ingredient of flavor.ingredients;let isLast = last">
-                <span *ngIf="isLast">{{ingredient}}</span>
-                <span *ngIf="!isLast">{{ingredient}},&nbsp;</span>
-              </span>
+  <div class="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-50 dark:text-gray-800">
+    <h2 class="text-xl font-semibold">Eissorten</h2>
+    <ul class="flex flex-col divide-y dark:divide-gray-300">
+      <div *ngIf="vm.flavorsState === CallState.LOADING">Laden...</div>
+      <div *ngIf="vm.flavorsState === CallState.ERROR">Ein Fehler ist aufgetreten. Bitte wiederholen Sie den Vorgang.</div>
+      <li *ngFor="let flavor of vm.flavors" class="flex flex-col divide-y dark:divide-gray-300">
+          <div class="flex w-full space-x-2 sm:space-x-4">
+            <div class="flex flex-col justify-between w-full pb-4">
+              <h4 class="font-bold">{{flavor.name}}</h4>
+            
+              <div class="flex wrap">
+                <label for="category-{{flavor.id}}" class="mx-2 text-gray-500">Kategorie:</label>
+                <div id="category-{{flavor.id}}">{{flavor.category}}</div>
+              </div>
+              <div class="flex wrap">
+                <label class="mx-2 text-gray-500">Zutaten:</label>
+                <div>
+                  <span  *ngFor="let ingredient of flavor.ingredients;let isLast = last">
+                    <span *ngIf="isLast">{{ingredient}}</span>
+                    <span *ngIf="!isLast">{{ingredient}},&nbsp;</span>
+                  </span>
+                </div>
+              </div>
+              <div class="flex wrap">
+                <label class="mx-2 text-gray-500">Lebensmittelunverträglichkeiten:</label>
+                <div class="col-9">{{flavor.foodIntolerance}}</div>
+              </div>
+              <div class="flex wrap">
+                <label class="mx-2 text-gray-500">Nährwert:</label>
+                <div class="col-1">{{flavor.nutritionalValue}}</div>
+                <div class="ml-1">kcal</div>
+              </div>
+              <div class="flex wrap">
+                <label class="mx-2 text-gray-500">Preis:</label>
+                <div>{{flavor.price | currency: 'EUR'}} </div>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="gray-color col-3">Lebensmittelunverträglichkeiten:</div>
-            <div class="col-9">{{flavor.foodIntolerance}}</div>
-          </div>
-          <div class="row justify-content-start">
-            <div class="gray-color col-3">Nährwert:</div>
-            <div class="col-1">{{flavor.nutritionalValue}}</div>
-            <div class="gray-color col-1">kcal</div>
-          </div>
-          <div class="row justify-content-start">
-            <div class="gray-color col-3">Preis:</div>
-            <div class="col-1">{{flavor.price}}</div>
-            <div class="gray-color col-1">Euro</div>
-          </div>
-        </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </div>
 </ng-container>
 
 
